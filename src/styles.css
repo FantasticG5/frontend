@@ -1,0 +1,86 @@
+:root {
+  --bg: #0b1020;
+  --card: #121a33;
+  --text: #e6e8ef;
+  --muted: #a6accd;
+  --accent: #4ade80;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji";
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 720px;
+  margin: 48px auto;
+  padding: 0 16px;
+}
+
+h1 { margin: 0 0 16px; }
+
+.booking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.booking-card {
+  background: var(--card);
+  border: 1px solid #263056;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.booking-info h3 {
+  margin: 0 0 4px;
+}
+
+.booking-info p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #33406c;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-cancel:hover { border-color: #4b5aa0; }
+.btn-cancel:disabled { opacity: .6; cursor: not-allowed; }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #263056;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.35);
+}
+.toast.success { outline: 2px solid #1f7a42; }
+.toast.error { outline: 2px solid #7a1f1f; }
+.toast-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  margin-left: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
