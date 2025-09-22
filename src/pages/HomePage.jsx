@@ -1,5 +1,6 @@
 import React from "react";
 import BookingButton from "../components/BookingButton";
+import BookingForm from "../components/BookingForm";
 
 export default function HomePage () {
     
@@ -10,6 +11,8 @@ export default function HomePage () {
 
         {/* Lägger den här tillfälligt tills man kan lägga den på korten */}
         <BookingButton buttonText="Boka nu" />
+
+        <BookingForm /> 
     </div>
   )
 }
