@@ -1,4 +1,5 @@
 import React from "react";
+import BookingButton from "../components/BookingButton";
 
 export default function HomePage () {
     
@@ -6,6 +7,9 @@ export default function HomePage () {
     <div className="container">
         <h1>Välkommen till Core Gym Club</h1>
         <p>Här kan du boka pass, se schema och hantera din profil</p>
+
+        {/* Lägger den här tillfälligt tills man kan lägga den på korten */}
+        <BookingButton buttonText="Boka nu" />
     </div>
   )
 }

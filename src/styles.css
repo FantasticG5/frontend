@@ -51,6 +51,18 @@ h1 { margin: 0 0 16px; }
   color: var(--muted);
 }
 
+.btn-book {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #33406c;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-book:hover { border-color: #4b5aa0; }
+.btn-book:disabled { opacity: .6; cursor: not-allowed; }
+
 .btn-cancel {
   background: transparent;
   color: #fff;
