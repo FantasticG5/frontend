@@ -9,7 +9,7 @@ const BookingForm = ({ session, onClose}) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const userId = 223; // tills vidare hårdkodat
+  const userId = 224; // tills vidare hårdkodat
 
   async function handleSubmit(e) {
     e.preventDefault();
