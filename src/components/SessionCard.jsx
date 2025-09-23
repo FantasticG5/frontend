@@ -1,36 +1,38 @@
 import React from "react";
+import BookingButton from "./BookingButton";
 
-function formatDateTime(isoString) {
-  return new Intl.DateTimeFormat("sv-SE", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(isoString));
-}
+// function formatDateTime(isoString) {
+//   return new Intl.DateTimeFormat("sv-SE", {
+//     dateStyle: "medium",
+//     timeStyle: "short",
+//   }).format(new Date(isoString));
+// }
 
-export default function SessionCard
-    ({ Title, Description, StartTime, EndTime, Location, Instructor, Capacity, ReservedSeats }) {
+export default function SessionCard({ session, onBook })
+     {
 
-    const availableSeats = Capacity - ReservedSeats;
-return(
-    <article className="session-card">
-        <h3 className="session-card__title">{Title}</h3>
-        <p className="session-card__time">
-            <strong>Tid:</strong> {formatDateTime(StartTime)} - {formatDateTime(EndTime)}
-        </p>
-        <p className="session-card__location">
-            <strong>Plats:</strong> {Location}
-        </p>
-        <p className="session-card__instructor">
-            <strong>Instruktör:</strong> {Instructor}
-        </p>
-        <p className="session-card__description">
-            <strong>Beskrivning:</strong> {Description}
-        </p>
-        <p className="session-card__slots">
-            <strong>Lediga platser:</strong> {availableSeats}
-        </p>
-    </article>
-);
+    const availableSeats = session.Capacity - session.ReservedSeats;
+    return (
+        <article className="session-card">
+            <h3 className="session-card__title">{session.Title}</h3>
+            {/* <p className="session-card__time">
+                <strong>Tid:</strong> {formatDateTime(session.StartTime)} - {formatDateTime(session.EndTime)}
+            </p> */}
+            <p className="session-card__location">
+                <strong>Plats:</strong> {session.Location}
+            </p>
+            <p className="session-card__instructor">
+                <strong>Instruktör:</strong> {session.Instructor}
+            </p>
+            <p className="session-card__description">
+                <strong>Beskrivning:</strong> {session.Description}
+            </p>
+            <p className="session-card__slots">
+                <strong>Lediga platser:</strong> {availableSeats}
+            </p>
+            <BookingButton buttonText="Boka nu" onClick={onBook}/>
+        </article>
+    );
 
 
 
