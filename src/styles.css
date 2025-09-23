@@ -51,44 +51,22 @@ h1 { margin: 0 0 16px; }
   color: var(--muted);
 }
 
-/* .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5); /* gråar ut bakgrunden 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5); /* gråar ut bakgrunden */
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* ser till att den ligger över allt */
+  z-index: 1000;
 }
 
-/* .modal-content {
-  /* background: white; 
-  /* background-color: rgba(0, 0, 0, 0.5); 
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 100%;
-  position: relative;
-} */
-
 .modal-content {
-  background-color: #1c1f2e; /* mörk bakgrund som passar din stil */
-  color: #fff; /* vit text mot mörk bakgrund */
+  background-color: #1c1f2e; 
+  color: #fff; 
   padding: 2rem;
   border-radius: 12px;
   max-width: 500px;
@@ -96,17 +74,6 @@ h1 { margin: 0 0 16px; }
   position: relative;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-/* 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: white
-} */
 
 .close-btn {
   position: absolute;
@@ -118,7 +85,6 @@ h1 { margin: 0 0 16px; }
   cursor: pointer;
   color: #fff;
 }
-
 
 .booking-form-container {
   border: 1px solid #33406c;

@@ -10,7 +10,6 @@ export default function HomePage () {
         <h1>Välkommen till Core Gym Club</h1>
         <p>Här kan du boka pass, se schema och hantera din profil</p>
 
-
         {/* Lägger den här tillfälligt tills man kan lägga den på korten */}
         <BookingButton buttonText="Boka nu" onClick={() => setIsOpen(true)} />
 
@@ -23,8 +22,6 @@ export default function HomePage () {
           </div>
         )}
         
-
-        {/* <BookingForm />  */}
     </div>
   )
 }
