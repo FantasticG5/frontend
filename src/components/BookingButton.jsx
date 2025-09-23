@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const BookingButton = ({buttonText}) => {
+const BookingButton = ({buttonText, onClick}) => {
     const [text, setText] = useState(buttonText);
     const [functionality, setFunctionality] = useState('book');
 
@@ -9,8 +9,9 @@ const BookingButton = ({buttonText}) => {
         <button 
             className='btn-book'
             onClick={() => {
-                setFunctionality('book')
-                setText('Bokad')
+                // setFunctionality('book')
+                // setText('Bokad')
+                if (onClick) onClick();
             }}
 
         >{text}</button>
