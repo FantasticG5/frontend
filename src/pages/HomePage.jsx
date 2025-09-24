@@ -11,7 +11,7 @@ export default function HomePage () {
         <p>Här kan du boka pass, se schema och hantera din profil</p>
 
         {/* Lägger den här tillfälligt tills man kan lägga den på korten */}
-        <BookingButton buttonText="Boka nu" onClick={() => setIsOpen(true)} />
+        {/* <BookingButton buttonText="Boka nu" onClick={() => setIsOpen(true)} />
 
         {isOpen && (
           <div className="modal-overlay">
@@ -20,7 +20,7 @@ export default function HomePage () {
               <BookingForm />
             </div>
           </div>
-        )}
+        )} */}
         
     </div>
   )
