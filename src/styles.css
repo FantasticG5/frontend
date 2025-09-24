@@ -243,3 +243,28 @@ h1 { margin: 0 0 16px; }
 .toast-close:hover {
   color: var(--text);
 }
+
+.session-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: var(--bg);
+}
+
+.session-card__title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.session-card__description,
+.session-card__time,
+.session-card__location,
+.session-card__instructor,
+.session-card__slots {
+  margin: 4px 0;
+}
+
+.session-title{
+  text-align: center;
+}
