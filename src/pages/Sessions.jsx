@@ -8,13 +8,15 @@ const BASE_URL = "http://localhost:5067";
 
 export default function Sessions() {
 
-  const [sessions, setSessions] = useState(null);
+  const [sessions, setSessions] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSession, setSelectedSession] = useState(null)
 
-  useEffect(() => {
-    async function load() {
+
+
+  async function fetchSession() {
+   
       try {
 
         setError(null);
@@ -50,13 +52,10 @@ export default function Sessions() {
       } finally {
         setLoading(false);
       }
-    }
-
-    load();
-
-
-  }, []);
-
+    };
+    useEffect(() => {
+      fetchSession();
+    }, [])
 
   if (loading) return <p>Laddar pass…</p>;
   if (error) return <p style={{ color: "crimson" }}>Fel: {error}</p>;
@@ -77,7 +76,21 @@ export default function Sessions() {
         <BookingForm 
           session={selectedSession}
           onClose={() => setSelectedSession(null)}
+          onBooked={async () => {setSessions(prev =>
+              prev.map(item =>
+                item.id === selectedSession.id
+                  ? {
+                      ...item,
+                      reservedSeats: (Number(item.reservedSeats) || 0) + 1,
+                    }
+                  : item
+              )
+            );
+            setSelectedSession(null)
+      }}
+      
         />
+        
       )}
     </div>
 

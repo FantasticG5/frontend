@@ -14,33 +14,24 @@ function formatDateTime(isoUtc) {
 
 export default function SessionCard({ session, onBook })
      {
-        const {
-        title,
-        startTime,
-        endTime,
-        location,
-        instructor,
-        description,
-        capacity = 0,
-        reservedSeats = 0, // API:t skickar inte detta än → defaulta
-    } = session;
+
         
 
-    const availableSeats = Math.max(0, capacity - reservedSeats);
+    const availableSeats =  session.capacity - session.reservedSeats;
     return (
         <article className="session-card">
-            <h3 className="session-card__title">{title}</h3>
+            <h3 className="session-card__title">{session.title}</h3>
             <p className="session-card__time">
-                <strong>Tid:</strong> {formatDateTime(startTime)} - {formatDateTime(endTime)}
+                <strong>Tid:</strong> {formatDateTime(session.startTime)} - {formatDateTime(session.endTime)}
             </p>
             <p className="session-card__location">
-                <strong>Plats:</strong> {location}
+                <strong>Plats:</strong> {session.location}
             </p>
             <p className="session-card__instructor">
-                <strong>Instruktör:</strong> {instructor}
+                <strong>Instruktör:</strong> {session.instructor}
             </p>
             <p className="session-card__description">
-                <strong>Beskrivning:</strong> {description}
+                <strong>Beskrivning:</strong> {session.description}
             </p>
             <p className="session-card__slots">
                 <strong>Lediga platser:</strong> {availableSeats}

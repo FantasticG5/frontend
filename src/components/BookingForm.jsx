@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-const BookingForm = ({ session, onClose}) => {
+const BookingForm = ({ session, onClose, onBooked}) => {
   
   const BOOKING_URL = "http://localhost:5142/api/booking";
 
@@ -9,13 +9,15 @@ const BookingForm = ({ session, onClose}) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const userId = 224; // tills vidare hårdkodat
+  const userId = 231; // tills vidare hårdkodat
 
   async function handleSubmit(e) {
+
     e.preventDefault();
     setLoading(true);
     setError(null);
     setSuccess(false);
+
 
     try {
       const res = await fetch(BOOKING_URL, {
@@ -30,6 +32,7 @@ const BookingForm = ({ session, onClose}) => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       setSuccess(true);
+      if (onBooked) onBooked();
     } catch (err) {
       setError(err.message);
     } finally {
