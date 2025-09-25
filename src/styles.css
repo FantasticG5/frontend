@@ -30,16 +30,27 @@ h1 { margin: 0 0 16px; }
   gap: 1rem;
   background: #263056;
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
+.navlink {
+  flex-shrink: 1;
+}
 .navbar a {
   color: white;
   text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 0.3rem;
 }
 
 .navbar a:hover {
   color: rgb(197, 103, 68);
+}
+
+.active-link {
+  /* font-weight: bold; */
+  border-bottom: 2px solid rgb(197, 103, 68) !important;
+  padding: 0 0.3rem;
 }
 
 
