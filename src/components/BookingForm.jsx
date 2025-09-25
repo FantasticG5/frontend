@@ -35,10 +35,10 @@ const BookingForm = ({ session, onClose, onBooked}) => {
 
       setSuccess(true);
       if (onBooked) onBooked();
-      setToast({ message: res?.message || "Bokning genomförd!", type: "success" });
+      setToast({ message: "Bokning genomförd!", type: "success" });
     } catch (err) {
       setError(err.message);
-      setToast({ message: err.message || "Något gick fel vid bokningen.", type: "error" });
+      setToast({ message: "Något gick fel vid bokningen.", type: "error" });
     } finally {
       setLoading(false);
     }
