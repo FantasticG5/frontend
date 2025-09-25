@@ -5,6 +5,7 @@ import MyBookings from "./pages/MyBookings";
 import "./styles.css";
 import Sessions from "./pages/Sessions";
 import Navbar from "./components/Navbar";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/bookings" element={<MyBookings />} />
           <Route path="/sessions" element={<Sessions />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Router>
   );
