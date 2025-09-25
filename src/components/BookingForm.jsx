@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import Toast from './Toast';
 
 const BookingForm = ({ session, onClose, onBooked}) => {
   
@@ -8,6 +9,7 @@ const BookingForm = ({ session, onClose, onBooked}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [toast, setToast] = useState({ message: "", type: "success" });
 
   const userId = 231; // tills vidare hårdkodat
 
@@ -33,8 +35,10 @@ const BookingForm = ({ session, onClose, onBooked}) => {
 
       setSuccess(true);
       if (onBooked) onBooked();
+      setToast({ message: "Bokning genomförd!", type: "success" });
     } catch (err) {
       setError(err.message);
+      setToast({ message: "Något gick fel vid bokningen.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -60,6 +64,12 @@ const BookingForm = ({ session, onClose, onBooked}) => {
           Avbryt
         </button>
       </form>
+
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: "", type: "success" })}
+      />
     </div>    
   )
 }
