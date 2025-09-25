@@ -193,3 +193,51 @@ h1 { margin: 0 0 16px; }
 .session-title{
   text-align: center;
 }
+
+.register-page-container {
+  max-width: 40%;
+  margin: 48px auto;
+  cursor: default;
+}
+
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  background: #263056;
+  border: 1px solid #33406c;
+  padding: 2rem 5rem;
+  border-radius: 12px;
+}
+
+.register-form > h2 {
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.register-label {
+  padding: 0.8rem 0 0.3rem 0;
+  text-align: left;
+}
+
+.register-input {
+  padding: 0.3rem;
+  border-radius: 5px;
+  border: none;
+  cursor: text;
+}
+
+.register-button {
+  margin: 2rem auto 1rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #33406c;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 40%;
+}
+
+.register-button:hover {
+  border-color: #4b5aa0;
+}
