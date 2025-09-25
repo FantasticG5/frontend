@@ -7,15 +7,15 @@ const Navbar = () => {
         <nav className="navbar">
             <NavLink  
                 to="/"
-                className={({ isActive }) => isActive ? "active-link" : ""}
+                className={({ isActive }) => isActive ? "active-link" : "navlink"}
             >Start</NavLink>
             <NavLink  
                 to="/sessions"
-                className={({ isActive }) => isActive ? "active-link" : ""}
+                className={({ isActive }) => isActive ? "active-link" : "navlink"}
             >Träningspass</NavLink>
             <NavLink  
                 to="/bookings"
-                className={({ isActive }) => isActive ? "active-link" : ""}
+                className={({ isActive }) => isActive ? "active-link" : "navlink"}
             >Mina bokningar</NavLink>
         </nav>
     </div>
