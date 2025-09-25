@@ -1,10 +1,20 @@
+// src/pages/MyBookings.jsx
 import React, { useState } from "react";
 import Toast from "../components/Toast";
 import { cancelBooking } from "../services/bookingService";
 
 export default function MyBookings() {
+  // TODO: Byt till att hämta riktiga bokningar från API
   const [bookings, setBookings] = useState([
-    { id: 1, title: "TESTA", date: "2025-09-18 18:00", memberEmail: "stefan@example.com", memberName: "Stefan" }
+    {
+      id: 16,                 // bookingId (valfritt att visa)
+      classId: 1,            // behövs för cancel
+      userId: 444,           // behövs för cancel
+      title: "TESTA",
+      date: "2025-09-18 18:00",
+      email: "pavado@pm.me", // skickas till backend
+      memberName: "Stefan"
+    }
   ]);
 
   const [toast, setToast] = useState({ message: "", type: "success" });
@@ -13,13 +23,16 @@ export default function MyBookings() {
   async function handleCancel(b) {
     try {
       setLoadingId(b.id);
+
       const res = await cancelBooking({
-        bookingId: b.id,
-        memberEmail: b.memberEmail,
-        memberName: b.memberName,
+        classId: b.classId,
+        userId: b.userId,
+        email: b.email
       });
 
-      setBookings([]);
+      // Ta bort raden (optimistiskt) eller gör en refetch efteråt
+      setBookings(prev => prev.filter(x => x.id !== b.id));
+
       setToast({ message: res?.message || "Avbokning genomförd!", type: "success" });
     } catch (err) {
       setToast({ message: err.message || "Något gick fel vid avbokning.", type: "error" });
