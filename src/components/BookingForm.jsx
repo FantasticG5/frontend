@@ -11,7 +11,7 @@ const BookingForm = ({ session, onClose, onBooked}) => {
   const [success, setSuccess] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "success" });
 
-  const userId = 231; // tills vidare hårdkodat
+  const userId = 240; // tills vidare hårdkodat
 
   async function handleSubmit(e) {
 
@@ -54,8 +54,8 @@ const BookingForm = ({ session, onClose, onBooked}) => {
           {session.instructor}.
         </p>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && <p style={{ color: "green" }}>Bokningen lyckades!</p>}
+        {/* {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>Bokningen lyckades!</p>} */}
 
         <button type="submit" disabled={loading}>
           {loading ? "Bokar..." : "Bekräfta bokning"}
