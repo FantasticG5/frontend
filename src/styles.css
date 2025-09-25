@@ -24,6 +24,25 @@ body {
 
 h1 { margin: 0 0 16px; }
 
+
+.navbar {
+  display: flex;
+  gap: 1rem;
+  background: #263056;
+  padding: 1rem;
+  font-size: 0.8rem;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: rgb(197, 103, 68);
+}
+
+
 .booking-list {
   list-style: none;
   padding: 0;
