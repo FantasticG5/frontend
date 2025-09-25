@@ -31,11 +31,13 @@ h1 { margin: 0 0 16px; }
   background: #263056;
   padding: 1rem;
   font-size: 1.2rem;
+  justify-content: space-between;
 }
 
 .navlink {
   flex-shrink: 1;
 }
+
 .navbar a {
   color: white;
   text-decoration: none;
@@ -48,11 +50,68 @@ h1 { margin: 0 0 16px; }
 }
 
 .active-link {
-  /* font-weight: bold; */
   border-bottom: 2px solid rgb(197, 103, 68) !important;
   padding: 0 0.3rem;
 }
 
+.profile-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transform: scaleX(-1);
+}
+
+.profile-button:hover {
+  color: rgb(197, 103, 68);
+  transform: scaleX(+1);
+  
+}
+
+.login-page-container {
+  max-width: 40%;
+  margin: 48px auto;
+  cursor: default;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background: #263056;
+  border: 1px solid #33406c;
+  padding: 2rem 5rem 1rem;
+  border-radius: 12px;
+}
+
+.login-form > h2 {
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.login-label {
+  padding: 0.8rem 0 0.3rem 0;
+  text-align: left;
+}
+
+.login-input {
+  padding: 0.3rem;
+  border-radius: 5px;
+  border: none;
+  cursor: text;
+}
+
+.login-button {
+  margin: 2rem auto 1rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #33406c;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-button:hover { border-color: #4b5aa0; }
 
 .booking-list {
   list-style: none;
@@ -61,6 +120,7 @@ h1 { margin: 0 0 16px; }
   display: grid;
   gap: 12px;
 }
+
 
 .booking-card {
   background: var(--card);
