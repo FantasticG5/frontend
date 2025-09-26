@@ -1,20 +1,37 @@
-import React from 'react'
+import React, { useState }  from 'react'
+import LoginForm from '../components/LoginForm'
+import { useAuth } from '../components/auth/authProvider';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LoginPage = () => {
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from =  "/";
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleLogin = async (email, password) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await login(email, password);
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError("Något gick fel vid inloggning. Försök igen.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
   return (
-    <div className="login-page-container">
-        <form className="login-form">
-            <h2>Logga in</h2>
-
-            <label htmlFor="email" className='login-label'>Email:</label>
-            <input type="text" className='login-input' placeholder="john@doe.com" />
-
-            <label htmlFor="password" className='login-label'>Password:</label>
-            <input type="password" className='login-input' placeholder="*************" />
-
-            <button type="submit" className='login-button'>Börja träna ditt late fan</button>
-        </form>
-    </div>
+    <>
+      <LoginForm onLogin={handleLogin} loading={loading} error={error} />
+    </>
   )
 }
 
