@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from "react";
-// import { registerUser } from "../services/authService"
+import { registerUser } from "../services/authService"
 import Toast from "./Toast";
 
 export default function RegisterForm() {
@@ -21,8 +21,14 @@ export default function RegisterForm() {
 
         try {
             setLoading(true);
-            const res = await registerUser(form);
-            setToast({ message: res.messagem, type: "success"})
+            const res = await registerUser({
+                firstName: form.firstName,
+                lastName: form.lastName,
+                email: form.email,
+                password: form.password,
+                confirmedPassword: form.confirmPassword
+            });
+            setToast({ message: res.message, type: "success"})
         } catch (err) {
             setToast({ message: err.message, type: "error"})
         } finally {
