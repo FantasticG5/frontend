@@ -17,6 +17,10 @@ const Navbar = () => {
                 to="/bookings"
                 className={({ isActive }) => isActive ? "active-link" : "navlink"}
             >Mina bokningar</NavLink>
+            <NavLink  
+                to="/cookie-settings"
+                className={({ isActive }) => isActive ? "active-link" : "navlink"}
+            >Cookie-inställningar</NavLink>
         </nav>
     </div>
   )
