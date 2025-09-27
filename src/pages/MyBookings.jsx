@@ -57,7 +57,7 @@ export default function MyBookings() {
 
       {bookings.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">📅</div>
+          <div className="empty-icon"></div>
           <h3>Inga kommande bokningar</h3>
           <p>Du har inga aktiva träningspass bokade just nu.</p>
         </div>
@@ -67,23 +67,23 @@ export default function MyBookings() {
             <h3>{bookings[0].title}</h3>
             <div className="booking-details">
               <div className="detail-item">
-                <span className="detail-label">📅 Datum & tid:</span>
+                <span className="detail-label"> Datum & tid:</span>
                 <span className="detail-value">{bookings[0].date}</span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">👨‍🏫 Instruktör:</span>
+                <span className="detail-label"> Instruktör:</span>
                 <span className="detail-value">{bookings[0].instructor}</span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">📍 Plats:</span>
+                <span className="detail-label"> Plats:</span>
                 <span className="detail-value">{bookings[0].location}</span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">⏱️ Längd:</span>
+                <span className="detail-label"> Längd:</span>
                 <span className="detail-value">{bookings[0].duration}</span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">👥 Platser:</span>
+                <span className="detail-label"> Platser:</span>
                 <span className="detail-value">{bookings[0].currentParticipants}/{bookings[0].maxParticipants}</span>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function MyBookings() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h3>Bekräfta avbokning</h3>
             <p>Är du säker på att du vill avboka <strong>{bookingToCancel?.title}</strong>?</p>
-            <p className="warning-text">⚠️ Genom att avboka frigör du platsen för andra medlemmar.</p>
+            <p className="warning-text"> Genom att avboka frigör du platsen för andra medlemmar.</p>
             <div className="modal-actions">
               <button className="btn-secondary" onClick={handleCancelDialog}>
                 Avbryt
