@@ -49,12 +49,18 @@ const CookieSettings = () => {
           </ul>
         </div>
 
-        <button 
-          className="btn-primary"
-          onClick={() => setShowSettingsModal(true)}
-        >
-          Ändra cookie-inställningar
-        </button>
+        <div className="settings-actions">
+          <button 
+            className="btn-primary"
+            onClick={() => setShowSettingsModal(true)}
+          >
+            Ändra cookie-inställningar
+          </button>
+          
+          <a href="/about-cookies" className="btn-secondary-link">
+            Läs mer om cookies
+          </a>
+        </div>
       </div>
 
       <CookieSettingsModal

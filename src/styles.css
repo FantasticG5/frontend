@@ -422,6 +422,20 @@ h1 { margin: 0 0 16px; }
   line-height: 1.4;
 }
 
+.cookie-banner-link {
+  margin: 12px 0 0 0 !important;
+}
+
+.cookie-banner-link a {
+  color: var(--accent);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.cookie-banner-link a:hover {
+  color: #22c55e;
+}
+
 .cookie-banner-actions {
   display: flex;
   gap: 12px;
@@ -622,6 +636,188 @@ h1 { margin: 0 0 16px; }
   color: var(--text);
 }
 
+/* About Cookies Page Styles */
+.about-cookies-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.about-cookies-page .container {
+  max-width: 1000px;
+  margin: 48px auto;
+  padding: 0 16px;
+}
+
+.about-cookies-page .page-header {
+  margin-bottom: 32px;
+}
+
+.about-cookies-page h1 {
+  color: var(--text);
+  margin-bottom: 16px;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.about-cookies-page .page-description {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.about-cookies-page .version-info {
+  background: var(--card);
+  border: 1px solid #263056;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-bottom: 32px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.about-cookies-page .version-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.about-cookies-page .version-info strong {
+  color: var(--text);
+}
+
+.about-cookies-page .cookie-categories {
+  margin-bottom: 48px;
+}
+
+.about-cookies-page .cookie-category {
+  background: var(--card);
+  border: 1px solid #263056;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.about-cookies-page .cookie-category h2 {
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.about-cookies-page .category-description {
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.about-cookies-page .cookies-list {
+  display: grid;
+  gap: 16px;
+}
+
+.about-cookies-page .cookie-item {
+  background: var(--bg);
+  border: 1px solid #263056;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.about-cookies-page .cookie-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.about-cookies-page .cookie-item-header h4 {
+  color: var(--text);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.about-cookies-page .duration-badge {
+  background: rgba(74, 222, 128, 0.2);
+  color: var(--accent);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.about-cookies-page .cookie-item-purpose {
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.about-cookies-page .additional-info {
+  background: var(--card);
+  border: 1px solid #263056;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.about-cookies-page .additional-info h2 {
+  color: var(--text);
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.about-cookies-page .info-sections {
+  display: grid;
+  gap: 24px;
+}
+
+.about-cookies-page .info-section h3 {
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.about-cookies-page .info-section p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive design för About Cookies */
+@media (max-width: 768px) {
+  .about-cookies-page .container {
+    margin: 24px auto;
+    padding: 0 12px;
+  }
+  
+  .about-cookies-page h1 {
+    font-size: 2rem;
+  }
+  
+  .about-cookies-page .version-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .about-cookies-page .cookie-category {
+    padding: 16px;
+  }
+  
+  .about-cookies-page .cookie-item {
+    padding: 12px;
+  }
+  
+  .about-cookies-page .cookie-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
 .cookie-settings-page .container {
   max-width: 800px;
   margin: 48px auto;
@@ -676,6 +872,32 @@ h1 { margin: 0 0 16px; }
 
 .cookie-info li strong {
   color: var(--text);
+}
+
+.settings-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.btn-secondary-link {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-secondary-link:hover {
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
 }
 
 .btn-primary {

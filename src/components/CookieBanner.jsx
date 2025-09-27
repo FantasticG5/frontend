@@ -72,14 +72,19 @@ const CookieBanner = () => {
     <>
       <div className="cookie-banner">
         <div className="cookie-banner-content">
-          <div className="cookie-banner-text">
-            <h3>Vi använder cookies</h3>
-            <p>
-              Vi använder cookies för att förbättra din upplevelse på vår webbplats. 
-              Nödvändiga cookies är alltid aktiva, men du kan välja att aktivera eller 
-              inaktivera funktionella och analytiska cookies.
-            </p>
-          </div>
+                 <div className="cookie-banner-text">
+                   <h3>Vi använder cookies</h3>
+                   <p>
+                     Vi använder cookies för att förbättra din upplevelse på vår webbplats. 
+                     Nödvändiga cookies är alltid aktiva, men du kan välja att aktivera eller 
+                     inaktivera funktionella och analytiska cookies.
+                   </p>
+                   <p className="cookie-banner-link">
+                     <a href="/about-cookies" target="_blank" rel="noopener noreferrer">
+                       Läs mer om cookies
+                     </a>
+                   </p>
+                 </div>
           
           <div className="cookie-banner-actions">
             <button 
