@@ -28,7 +28,7 @@ export default function RegisterForm() {
                 password: form.password,
                 confirmedPassword: form.confirmPassword
             });
-            setToast({ message: res.message, type: "success"})
+            setToast({ message: "Användare skapad!", type: "success"})
         } catch (err) {
             setToast({ message: err.message, type: "error"})
         } finally {
