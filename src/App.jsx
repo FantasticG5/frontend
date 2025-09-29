@@ -11,24 +11,29 @@ import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import CookieBanner from "./components/CookieBanner";
 import { useAnalytics } from "./hooks/useAnalytics";
+import Footer from "./components/Footer";
 
 export default function App() {
-  // Ladda analytics baserat på samtycke
   useAnalytics();
 
   return (
       <Router>
-        <Navbar />
-               <Routes>
-                 <Route path="/" element={<HomePage />} />
-                 <Route path="/bookings" element={<MyBookings />} />
-                 <Route path="/sessions" element={<Sessions />} />
-                 <Route path="/login" element={<LoginPage />} />
-                 <Route path="/register" element={<RegisterForm />} />
-                 <Route path="/cookie-settings" element={<CookieSettings />} />
-                 <Route path="/about-cookies" element={<AboutCookies />} />
-               </Routes>
-        <CookieBanner />
+        <div className="app-wrapper">
+          <Navbar />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/bookings" element={<MyBookings />} />
+              <Route path="/sessions" element={<Sessions />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/cookie-settings" element={<CookieSettings />} />
+              <Route path="/about-cookies" element={<AboutCookies />} />
+            </Routes>
+            <CookieBanner />
+          </div>
+          <Footer />
+        </div>
       </Router>
   );
 }
