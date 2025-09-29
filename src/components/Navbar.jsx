@@ -38,7 +38,9 @@ const Navbar = () => {
             </div>
             <div>
                 <button className="profile-button" onClick={handleProfileClick}>
+                    <p>Logga in</p>
                     <FontAwesomeIcon icon={faPersonWalking} alt-text="Profile" />
+                    
                 </button>
             </div>
         </nav>

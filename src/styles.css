@@ -60,13 +60,26 @@ h1 { margin: 0 0 16px; }
   color: white;
   cursor: pointer;
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-button p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.profile-button svg {
   transform: scaleX(-1);
 }
 
 .profile-button:hover {
   color: rgb(197, 103, 68);
-  transform: scaleX(+1);
-  
+ 
+  svg {
+    transform: scaleX(+1);
+  }
 }
 
 .login-page-container {
