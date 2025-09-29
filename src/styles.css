@@ -1,15 +1,29 @@
 :root {
-  --bg: #0b1020;
-  --card: #121a33;
-  --text: #e6e8ef;
-  --muted: #a6accd;
-  --accent: #4ade80;
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --bright-text: #ffffff;
+  --muted: #6b7280;
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
   --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --navbar-bg:#609ed1;
+  --navbar-hover: rgb(241, 161, 87);
+  --border-default: #33406c;
+  --border-light: #ccc;
+  --toast-success: #1f7a42;
+  --toast-error: #7a1f1f;
+  --popup-bg: #b6deff;
+  --popup-border: #7187cc;
+  --orange-button: rgb(241, 161, 87);
+  --orange-button-hover: rgb(231, 125, 25);
+  --orange-button-border: rgb(231, 125, 25);
 }
 
 * { box-sizing: border-box; }
 
-body {
+html, body, #root {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji";
   background: var(--bg);
@@ -35,7 +49,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .footer {
-  background: #263056;
+  background: var(--navbar-bg);
   padding: 1rem;
   text-align: center;
   display: flex;
@@ -43,6 +57,7 @@ h1 { margin: 0 0 16px; }
   align-items: center;
   justify-content: space-between;
   cursor: default;
+  color: var(--bright-text);
 }
 
 .navlink-footer {
@@ -53,13 +68,13 @@ h1 { margin: 0 0 16px; }
 }
 
 .navlink-footer:hover {
-  color: rgb(197, 103, 68);
+  color: var(--navbar-hover);
 }
 
 .navbar {
   display: flex;
   gap: 1rem;
-  background: #263056;
+  background: var(--navbar-bg);
   padding: 1rem;
   font-size: 1.2rem;
   justify-content: space-between;
@@ -77,11 +92,11 @@ h1 { margin: 0 0 16px; }
 }
 
 .navbar a:hover {
-  color: rgb(197, 103, 68);
+  color: var(--navbar-hover);
 }
 
 .active-link {
-  border-bottom: 2px solid rgb(197, 103, 68) !important;
+  border-bottom: 2px solid var(--navbar-hover) !important;
   padding: 0 0.3rem;
 }
 
@@ -106,7 +121,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .profile-button:hover {
-  color: rgb(197, 103, 68);
+  color: var(--navbar-hover);
  
   svg {
     transform: scaleX(+1);
@@ -122,8 +137,8 @@ h1 { margin: 0 0 16px; }
 .login-form {
   display: flex;
   flex-direction: column;
-  background: #263056;
-  border: 1px solid #33406c;
+  background: var(--popup-bg);
+  border: 1px solid var(--popup-border);
   padding: 2rem 5rem 1rem;
   border-radius: 12px;
 }
@@ -151,15 +166,15 @@ h1 { margin: 0 0 16px; }
 
 .login-button {
   margin: 2rem auto 1rem;
-  background: transparent;
+  background: var(--orange-button);
   color: #fff;
-  border: 1px solid #33406c;
+  border: 1px solid var(--orange-button-border);
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.login-button:hover { border-color: #4b5aa0; }
+.login-button:hover { background-color: var(--orange-button-hover); }
 
 .booking-list {
   list-style: none;
@@ -445,8 +460,8 @@ h1 { margin: 0 0 16px; }
   border-left: 4px solid #1f7a42;
 }
 .toast.error { 
-  outline: 2px solid #7a1f1f; 
-  border-left: 4px solid #7a1f1f;
+  outline: 2px solid var(--toast-error); 
+  border-left: 4px solid var(--toast-error);
 }
 .toast-close {
   background: transparent;
