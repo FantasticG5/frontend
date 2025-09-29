@@ -24,6 +24,37 @@ body {
 
 h1 { margin: 0 0 16px; }
 
+.app-wrapper {
+ display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  background: #263056;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+}
+
+.navlink-footer {
+  color: white;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 0.3rem;
+}
+
+.navlink-footer:hover {
+  color: rgb(197, 103, 68);
+}
 
 .navbar {
   display: flex;
