@@ -1,67 +1,102 @@
-// src/pages/MyBookings.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Toast from "../components/Toast";
-import { cancelBooking } from "../services/bookingService";
+import { getMyBookings, cancelBooking } from "../services/bookingService";
+import { getAllClasses } from "../services/eventService";
+import { getMe } from "../services/identityService";
 
 export default function MyBookings() {
-  // TODO: Byt till att hämta riktiga bokningar från API
-  const [bookings, setBookings] = useState([
-    {
-      id: 16,                 // bookingId (valfritt att visa)
-      classId: 1,            // behövs för cancel
-      userId: 444,           // behövs för cancel
-      title: "TESTA",
-      date: "2025-09-18 18:00",
-      email: "pavado@pm.me", // skickas till backend
-      memberName: "Stefan"
-    }
-  ]);
-
+  const [me, setMe] = useState(null);
+  const [items, setItems] = useState([]);
   const [toast, setToast] = useState({ message: "", type: "success" });
-  const [loadingId, setLoadingId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+
+        const meRes = await getMe();           // ← kräver att du är inloggad
+        setMe(meRes);
+
+        const [bookings, classes] = await Promise.all([
+          getMyBookings().catch(() => []),
+          getAllClasses().catch(() => []),
+        ]);
+
+        const classMap = new Map(
+          classes.map(c => [ (c.id ?? c.Id), {
+            id: c.id ?? c.Id,
+            title: c.title ?? c.Title,
+            startTime: c.startTime ?? c.StartTime,
+            location: c.location ?? c.Location,
+            instructor: c.instructor ?? c.Instructor
+          } ])
+        );
+
+        const combined = bookings.map(b => {
+          const cls = classMap.get(b.classId ?? b.ClassId);
+          return {
+            id: b.id ?? b.Id,
+            classId: b.classId ?? b.ClassId,
+            title: cls?.title ?? "(okänd klass)",
+            date: cls?.startTime ?? null,
+            location: cls?.location ?? "",
+            instructor: cls?.instructor ?? ""
+          };
+        });
+
+        setItems(combined);
+      } catch (e) {
+        setToast({ message: e.message || "Kunde inte hämta bokningar.", type: "error" });
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   async function handleCancel(b) {
     try {
-      setLoadingId(b.id);
+      if (!me) throw new Error("Inte inloggad.");
+      setBusyId(b.id);
 
-      const res = await cancelBooking({
-        classId: b.classId,
-        userId: b.userId,
-        email: b.email
-      });
+      await cancelBooking({ classId: b.classId, userId: me.id, email: me.email });
 
-      // Ta bort raden (optimistiskt) eller gör en refetch efteråt
-      setBookings(prev => prev.filter(x => x.id !== b.id));
-
-      setToast({ message: res?.message || "Avbokning genomförd!", type: "success" });
+      setItems(prev => prev.filter(x => x.id !== b.id));
+      setToast({ message: "Avbokning genomförd!", type: "success" });
     } catch (err) {
       setToast({ message: err.message || "Något gick fel vid avbokning.", type: "error" });
     } finally {
-      setLoadingId(null);
+      setBusyId(null);
     }
   }
+
+  if (loading) return <p>Laddar bokningar…</p>;
+  if (!me) return <p>Du är inte inloggad. <a href="/login">Logga in</a></p>;
+  if (items.length === 0) return <p>Du har inga kommande bokningar.</p>;
 
   return (
     <div className="container">
       <h1>Mina bokningar</h1>
 
-      {bookings.length === 0 ? (
-        <p>Du har inga kommande bokningar.</p>
-      ) : (
-        <div className="booking-card">
-          <div>
-            <h3>{bookings[0].title}</h3>
-            <p>{bookings[0].date}</p>
+      <div className="booking-list">
+        {items.map(b => (
+          <div key={b.id} className="booking-card">
+            <div>
+              <h3>{b.title}</h3>
+              <p>{b.location} • {b.instructor}</p>
+              <p>{b.date ? new Date(b.date).toLocaleString() : "Okänt datum"}</p>
+            </div>
+            <button
+              className="btn-cancel"
+              onClick={() => handleCancel(b)}
+              disabled={busyId === b.id}
+            >
+              {busyId === b.id ? "Avbokar..." : "Avboka"}
+            </button>
           </div>
-          <button
-            className="btn-cancel"
-            onClick={() => handleCancel(bookings[0])}
-            disabled={loadingId === bookings[0].id}
-          >
-            {loadingId === bookings[0].id ? "Avbokar..." : "Avboka"}
-          </button>
-        </div>
-      )}
+        ))}
+      </div>
 
       <Toast
         message={toast.message}
