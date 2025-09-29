@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import MyBookings from "./pages/MyBookings";
 import "./styles.css";
 import Sessions from "./pages/Sessions";
+import RegisterForm from "./components/RegisterForm";
 import CookieSettings from "./pages/CookieSettings";
 import AboutCookies from "./pages/AboutCookies";
 import Navbar from "./components/Navbar";
@@ -23,6 +24,7 @@ export default function App() {
                  <Route path="/bookings" element={<MyBookings />} />
                  <Route path="/sessions" element={<Sessions />} />
                  <Route path="/login" element={<LoginPage />} />
+                 <Route path="/register" element={<RegisterForm />} />
                  <Route path="/cookie-settings" element={<CookieSettings />} />
                  <Route path="/about-cookies" element={<AboutCookies />} />
                </Routes>
