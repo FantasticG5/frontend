@@ -101,10 +101,6 @@ h1 { margin: 0 0 16px; }
   cursor: text;
 }
 
-.input-error {
-  border: 2px solid var(--danger);
-}
-
 .login-button {
   margin: 2rem auto 1rem;
   background: transparent;
@@ -502,6 +498,10 @@ h1 { margin: 0 0 16px; }
   font-style: italic;
   margin-top: 0.3rem;
   font-size: 0.8rem;
+}
+
+.input-error {
+  border: 2px solid var(--danger);
 }
 
 /* Cookie Banner Styles */
