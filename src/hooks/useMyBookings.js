@@ -57,13 +57,9 @@ export function useMyBookings() {
   useEffect(() => { refetch(); }, []);
 
   async function onCancel(bookingId) {
-    setBusyId(bookingId);
-    try {
-      await cancelBooking(bookingId);
-      setItems(prev => prev.filter(x => x.id !== bookingId)); // optimistiskt
-    } finally {
-      setBusyId(null);
-    }
+    const item = items.find(x => x.id === bookingId);
+    await cancelBooking(item.classId); // <-- klass-id, inte booking-id
+    setItems(prev => prev.filter(x => x.id !== bookingId));
   }
 
   const empty = useMemo(() => items.length === 0, [items]);
