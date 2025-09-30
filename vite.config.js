@@ -7,6 +7,6 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     strictPort: true,
-    https: false   // explicitly keep HTTP
+    // https: false   // explicitly keep HTTP
   }
 })
