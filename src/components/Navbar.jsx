@@ -3,13 +3,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import {faPersonWalking } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../components/auth/authProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth();
+
 
   const handleProfileClick = () => {
     navigate('/login');
   };
+  const handleLogoutClick = async () => 
+    { 
+        try 
+        { 
+            await logout(); 
+            navigate("/login"); 
+        } 
+        catch (err) 
+        { 
+            console.error("Logout failed:", err);
+         } 
+    };
 
   return (
     <div>
@@ -37,6 +52,7 @@ const Navbar = () => {
                    >Om cookies</NavLink>
             </div>
             <div>
+                <button className="logout-button" onClick={handleLogoutClick}>Log out</button>
                 <button className="profile-button" onClick={handleProfileClick}>
                     <FontAwesomeIcon icon={faPersonWalking} alt-text="Profile" />
                 </button>

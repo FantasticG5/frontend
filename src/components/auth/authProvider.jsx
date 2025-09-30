@@ -8,20 +8,35 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
     if (!res.ok) throw new Error("Fel vid inloggning");
     const data = await res.json();
     // saveToken(data.token);
     setToken(data.token);
   };
 
-  const logout = () => {
-    // clearToken();
-    setToken(null);
+  const logout = async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+
+      if (!res.ok) throw new Error("Fel vid utloggning");
+
+      // clearToken();
+      setToken(null);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

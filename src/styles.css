@@ -69,6 +69,33 @@ h1 { margin: 0 0 16px; }
   
 }
 
+.logout-button {
+  background: #121a33;
+  color: white;
+  border: 1px solid #33406c;
+  border-radius: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-left: 12px;
+}
+
+.logout-button:hover {
+  background: rgb(197, 103, 68);
+  border-color: rgb(197, 103, 68);
+  color: white;
+}
+
+.logout-button:active {
+  transform: translateY(1px);
+}
+
+.logout-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .login-page-container {
   max-width: 40%;
   margin: 48px auto;
