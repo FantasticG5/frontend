@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import MyBookings from "./pages/MyBookings";
 import Sessions from "./pages/Sessions";
 import "./styles.css"
+import RegisterForm from "./components/RegisterForm";
 import CookieSettings from "./pages/CookieSettings";
 import AboutCookies from "./pages/AboutCookies";
 import Navbar from "./components/Navbar";
@@ -11,14 +12,16 @@ import LoginPage from "./pages/LoginPage";
 import CookieBanner from "./components/CookieBanner";
 import { useAnalytics } from "./hooks/useAnalytics";
 import ProtectedRoute from "./components/auth/protectedRoute";
+import Footer from "./components/Footer";
 
 export default function App() {
-  // Ladda analytics baserat på samtycke
   useAnalytics();
 
   return (
     <Router>
+      <div className="app-wrapper">
       <Navbar />
+        <div className="content">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -35,6 +38,9 @@ export default function App() {
         <Route path="/about-cookies" element={<AboutCookies />} />
       </Routes>
       <CookieBanner />
+          </div>
+          <Footer />
+        </div>
     </Router>
   );
 }
