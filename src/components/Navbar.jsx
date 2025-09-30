@@ -42,19 +42,13 @@ const Navbar = () => {
                     to="/bookings"
                     className={({ isActive }) => isActive ? "active-link" : "navlink"}
                 >Mina bokningar</NavLink>
-                <NavLink  
-                       to="/cookie-settings"
-                       className={({ isActive }) => isActive ? "active-link" : "navlink"}
-                   >Cookie-inställningar</NavLink>
-                   <NavLink  
-                       to="/about-cookies"
-                       className={({ isActive }) => isActive ? "active-link" : "navlink"}
-                   >Om cookies</NavLink>
             </div>
             <div>
                 <button className="logout-button" onClick={handleLogoutClick}>Log out</button>
                 <button className="profile-button" onClick={handleProfileClick}>
+                    <p>Logga in</p>
                     <FontAwesomeIcon icon={faPersonWalking} alt-text="Profile" />
+                    
                 </button>
             </div>
         </nav>

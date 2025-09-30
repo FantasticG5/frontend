@@ -1,10 +1,29 @@
-import React, { createContext, useContext, useState } from "react";
-import { setToken as saveToken, clearToken, getToken, isAuthenticated } from "../../../auth";
+// src/components/auth/authProvider.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(getToken());
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // kontrollera cookie vid start
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/me`, {
+          credentials: "include",
+        });
+        if (res.ok) {
+          setUser(await res.json());
+        }
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const login = async (email, password) => {
     const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
@@ -14,9 +33,14 @@ export function AuthProvider({ children }) {
         credentials: "include",
       });
     if (!res.ok) throw new Error("Fel vid inloggning");
-    const data = await res.json();
-    // saveToken(data.token);
-    setToken(data.token);
+
+    // Hämta användaren efter login
+    const meRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/me`, {
+      credentials: "include",
+    });
+    if (meRes.ok) {
+      setUser(await meRes.json());
+    }
   };
 
   const logout = async () => {
@@ -37,10 +61,11 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error("Logout error:", error);
     }
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, isAuthenticated: isAuthenticated(), login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

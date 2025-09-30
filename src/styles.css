@@ -1,15 +1,29 @@
 :root {
-  --bg: #0b1020;
-  --card: #121a33;
-  --text: #e6e8ef;
-  --muted: #a6accd;
-  --accent: #4ade80;
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --bright-text: #ffffff;
+  --muted: #6b7280;
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --toast-success: #1f7a42;
+  --toast-error: #7a1f1f;
   --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --navbar-bg:#609ed1;
+  --navbar-hover: rgb(241, 161, 87);
+  --border-default: #33406c;
+  --border-light: #ccc;
+  --popup-bg: #b6deff;
+  --popup-border: #7187cc;
+  --orange-button: rgb(241, 161, 87);
+  --orange-button-hover: rgb(231, 125, 25);
+  --orange-button-border: rgb(231, 125, 25);
 }
 
 * { box-sizing: border-box; }
 
-body {
+html, body, #root {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji";
   background: var(--bg);
@@ -24,11 +38,43 @@ body {
 
 h1 { margin: 0 0 16px; }
 
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  background: var(--navbar-bg);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  color: var(--bright-text);
+}
+
+.navlink-footer {
+  color: white;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 0.3rem;
+}
+
+.navlink-footer:hover {
+  color: var(--navbar-hover);
+}
 
 .navbar {
   display: flex;
   gap: 1rem;
-  background: #263056;
+  background: var(--navbar-bg);
   padding: 1rem;
   font-size: 1.2rem;
   justify-content: space-between;
@@ -46,11 +92,11 @@ h1 { margin: 0 0 16px; }
 }
 
 .navbar a:hover {
-  color: rgb(197, 103, 68);
+  color: var(--navbar-hover);
 }
 
 .active-link {
-  border-bottom: 2px solid rgb(197, 103, 68) !important;
+  border-bottom: 2px solid var(--navbar-hover) !important;
   padding: 0 0.3rem;
 }
 
@@ -60,13 +106,26 @@ h1 { margin: 0 0 16px; }
   color: white;
   cursor: pointer;
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-button p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.profile-button svg {
   transform: scaleX(-1);
 }
 
 .profile-button:hover {
-  color: rgb(197, 103, 68);
-  transform: scaleX(+1);
-  
+  color: var(--navbar-hover);
+ 
+  svg {
+    transform: scaleX(+1);
+  }
 }
 
 .logout-button {
@@ -105,8 +164,8 @@ h1 { margin: 0 0 16px; }
 .login-form {
   display: flex;
   flex-direction: column;
-  background: #263056;
-  border: 1px solid #33406c;
+  background: var(--popup-bg);
+  border: 1px solid var(--popup-border);
   padding: 2rem 5rem 1rem;
   border-radius: 12px;
 }
@@ -134,15 +193,149 @@ h1 { margin: 0 0 16px; }
 
 .login-button {
   margin: 2rem auto 1rem;
-  background: transparent;
+  background: var(--orange-button);
   color: #fff;
-  border: 1px solid #33406c;
+  border: 1px solid var(--orange-button-border);
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.login-button:hover { border-color: #4b5aa0; }
+.login-button:hover { background-color: var(--orange-button-hover); }
+
+/* Home Page */
+
+.home-container {
+  width: 100%;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 40vh; 
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.campaign-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navbar-bg);
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.banner-img {
+  height: 200px;
+  margin-right: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.banner-text {
+  max-width: 500px;
+}
+
+/* --- Medlemskap --- */
+.membership-section {
+  padding: 3rem 1rem;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.membership-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+.membership-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.membership-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 2rem;
+  width: 250px;
+  transition: transform 0.2s ease;
+}
+
+.membership-card:hover {
+  transform: translateY(-5px);
+}
+
+.membership-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #ff5722;
+}
+
+/* --- Kontakt --- */
+.contact-section {
+  padding: 3rem 1rem;
+  background: #fff;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+.contact-section p {
+  margin: 0.3rem 0;
+}
+
+/* Booking Page */ 
 
 .booking-list {
   list-style: none;
@@ -319,6 +512,7 @@ h1 { margin: 0 0 16px; }
   background: var(--danger);
   color: white;
 }
+
 .btn-cancel:disabled { 
   opacity: .6; 
   cursor: not-allowed;
@@ -337,8 +531,8 @@ h1 { margin: 0 0 16px; }
   transition: all 0.2s ease;
 }
 .btn-danger:hover {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: var(--danger-hover);
+  border-color: var(--danger-hover);
 }
 
 .btn-secondary {
@@ -424,12 +618,12 @@ h1 { margin: 0 0 16px; }
   width: calc(100% - 40px);
 }
 .toast.success { 
-  outline: 2px solid #1f7a42; 
-  border-left: 4px solid #1f7a42;
+  outline: 2px solid var(--toast-success); 
+  border-left: 4px solid var(--toast-success);
 }
 .toast.error { 
-  outline: 2px solid #7a1f1f; 
-  border-left: 4px solid #7a1f1f;
+  outline: 2px solid var(--toast-error); 
+  border-left: 4px solid var(--toast-error);
 }
 .toast-close {
   background: transparent;
@@ -581,7 +775,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .cookie-banner-link a:hover {
-  color: #22c55e;
+  color: var(--accent);
 }
 
 .cookie-banner-actions {
@@ -608,8 +802,8 @@ h1 { margin: 0 0 16px; }
 }
 
 .btn-accept-all:hover {
-  background: #22c55e;
-  border-color: #22c55e;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .btn-reject {
