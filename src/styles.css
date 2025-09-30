@@ -6,14 +6,14 @@
   --muted: #6b7280;
   --accent: #22c55e;
   --accent-hover: #16a34a;
+  --toast-success: #1f7a42;
+  --toast-error: #7a1f1f;
   --danger: #ef4444;
   --danger-hover: #dc2626;
   --navbar-bg:#609ed1;
   --navbar-hover: rgb(241, 161, 87);
   --border-default: #33406c;
   --border-light: #ccc;
-  --toast-success: #1f7a42;
-  --toast-error: #7a1f1f;
   --popup-bg: #b6deff;
   --popup-border: #7187cc;
   --orange-button: rgb(241, 161, 87);
@@ -39,7 +39,7 @@ html, body, #root {
 h1 { margin: 0 0 16px; }
 
 .app-wrapper {
- display: flex;
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -351,6 +351,7 @@ h1 { margin: 0 0 16px; }
   background: var(--danger);
   color: white;
 }
+
 .btn-cancel:disabled { 
   opacity: .6; 
   cursor: not-allowed;
@@ -369,8 +370,8 @@ h1 { margin: 0 0 16px; }
   transition: all 0.2s ease;
 }
 .btn-danger:hover {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: var(--danger-hover);
+  border-color: var(--danger-hover);
 }
 
 .btn-secondary {
@@ -456,8 +457,8 @@ h1 { margin: 0 0 16px; }
   width: calc(100% - 40px);
 }
 .toast.success { 
-  outline: 2px solid #1f7a42; 
-  border-left: 4px solid #1f7a42;
+  outline: 2px solid var(--toast-success); 
+  border-left: 4px solid var(--toast-success);
 }
 .toast.error { 
   outline: 2px solid var(--toast-error); 
@@ -613,7 +614,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .cookie-banner-link a:hover {
-  color: #22c55e;
+  color: var(--accent);
 }
 
 .cookie-banner-actions {
@@ -640,8 +641,8 @@ h1 { margin: 0 0 16px; }
 }
 
 .btn-accept-all:hover {
-  background: #22c55e;
-  border-color: #22c55e;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .btn-reject {
