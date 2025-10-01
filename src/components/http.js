@@ -1,59 +1,61 @@
 // src/components/http.js
-// Bas-URL:er (sätt i .env.development)
-// VITE_IDENTITY_URL=https://localhost:7270/api
-// VITE_BOOKING_URL=https://localhost:7201/api
-// VITE_EVENT_URL=https://localhost:7205/api
 
-const IDENTITY = import.meta.env.VITE_IDENTITY_URL;
-const BOOKING  = import.meta.env.VITE_BOOKING_URL;
-const EVENT    = import.meta.env.VITE_EVENT_URL;
+// ---------- Bas-URL:er ----------
+// .env ska INTE ha "/api" på slutet
+// VITE_IDENTITY_URL=https://authsystem.orangegrass-89d57cf8.swedencentral.azurecontainerapps.io
+// VITE_BOOKING_URL=https://bookingsystem.orangegrass-89d57cf8.swedencentral.azurecontainerapps.io
+// VITE_EVENT_URL=https://eventsystem.orangegrass-89d57cf8.swedencentral.azurecontainerapps.io
 
-export const endpoints = { IDENTITY, BOOKING, EVENT };
+function withApi(base) {
+  const b = (base || "").replace(/\/+$/, "");
+  return `${b}/api`;
+}
 
-// ---------------------------------------------------------
-// Token store (sessionStorage by default, localStorage vid "remember me")
-// ---------------------------------------------------------
+const IDENTITY_API = withApi(import.meta.env.VITE_IDENTITY_URL);
+const BOOKING_API  = withApi(import.meta.env.VITE_BOOKING_URL);
+const EVENT_API    = withApi(import.meta.env.VITE_EVENT_URL);
+
+export const endpoints = {
+  IDENTITY: IDENTITY_API,
+  BOOKING : BOOKING_API,
+  EVENT   : EVENT_API
+};
+
+// ---------- Token store keys ----------
 const ACCESS_KEY  = "auth.accessToken";
 const REFRESH_KEY = "auth.refreshToken";
-let accessToken  = sessionStorage.getItem(ACCESS_KEY)  || localStorage.getItem(ACCESS_KEY)  || null;
-let refreshToken = sessionStorage.getItem(REFRESH_KEY) || localStorage.getItem(REFRESH_KEY) || null;
 
-function saveTokens(at, rt, remember = false) {
-  accessToken  = at ?? null;
-  refreshToken = rt ?? null;
+// Läs ALLTID från storage (ingen modul-cache)
+export function getAccessToken() {
+  return sessionStorage.getItem(ACCESS_KEY) || localStorage.getItem(ACCESS_KEY) || null;
+}
+export function getRefreshToken() {
+  return sessionStorage.getItem(REFRESH_KEY) || localStorage.getItem(REFRESH_KEY) || null;
+}
 
+export function saveTokens(at, rt, remember = false) {
   // rensa båda först
-  sessionStorage.removeItem(ACCESS_KEY);
-  sessionStorage.removeItem(REFRESH_KEY);
-  localStorage.removeItem(ACCESS_KEY);
-  localStorage.removeItem(REFRESH_KEY);
+  [sessionStorage, localStorage].forEach(s => {
+    s.removeItem(ACCESS_KEY);
+    s.removeItem(REFRESH_KEY);
+  });
 
   const store = remember ? localStorage : sessionStorage;
-  if (accessToken)  store.setItem(ACCESS_KEY, accessToken);
-  if (refreshToken) store.setItem(REFRESH_KEY, refreshToken);
+  if (at) store.setItem(ACCESS_KEY, at);
+  if (rt) store.setItem(REFRESH_KEY, rt);
 }
 
 export function clearTokens() {
-  accessToken = null;
-  refreshToken = null;
-  sessionStorage.removeItem(ACCESS_KEY);
-  sessionStorage.removeItem(REFRESH_KEY);
-  localStorage.removeItem(ACCESS_KEY);
-  localStorage.removeItem(REFRESH_KEY);
+  [sessionStorage, localStorage].forEach(s => {
+    s.removeItem(ACCESS_KEY);
+    s.removeItem(REFRESH_KEY);
+  });
 }
 
-export function getAccessToken() { return accessToken; }
-export function getRefreshToken() { return refreshToken; }
-
-// ---------------------------------------------------------
-// Auth helpers
-// ---------------------------------------------------------
-/**
- * Logga in mot AuthService och spara tokens.
- * returnerar login-responsen (inkl. expires)
- */
+// ---------- Auth helpers ----------
 export async function login(email, password, remember = false) {
-  const res = await fetch(`${IDENTITY}/auth/login`, {
+  // OBS: endpoints.IDENTITY slutar redan med /api
+  const res = await fetch(`${endpoints.IDENTITY}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "omit",
@@ -66,77 +68,67 @@ export async function login(email, password, remember = false) {
   }
 
   const data = await res.json();
-  // förväntat shape:
-  // { succeeded: true, data: { accessToken, refreshToken, accessExpiresUtc, refreshExpiresUtc } }
   const payload = data?.data ?? data;
   saveTokens(payload.accessToken, payload.refreshToken, remember);
   return payload;
 }
 
 export function logout() {
-  clearTokens(); // JWT är stateless – att rensa klientens tokens räcker
+  clearTokens(); // JWT: stateless
 }
 
-/**
- * Försök förnya access token med refresh token.
- * Uppdaterar token store eller kastar vid fel.
- */
 let refreshInFlight = null;
 async function refreshOnce() {
-  if (!refreshToken) throw new Error("No refresh token");
+  const rt = getRefreshToken();
+  if (!rt) throw new Error("No refresh token");
 
-  // Debounce parallella 401
   if (!refreshInFlight) {
     refreshInFlight = (async () => {
-      const res = await fetch(`${IDENTITY}/auth/refresh`, {
+      const res = await fetch(`${endpoints.IDENTITY}/auth/refresh`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "omit",
-        body: JSON.stringify({ refreshToken })
+        body: JSON.stringify({ refreshToken: rt })
       });
-
       if (!res.ok) {
         const msg = await safeText(res);
         throw new Error(`Refresh failed: ${res.status} ${msg}`);
       }
-
       const data = await res.json();
       const payload = data?.data ?? data;
-      saveTokens(payload.accessToken, payload.refreshToken, /*remember*/ !!localStorage.getItem(REFRESH_KEY));
+      const remembered = !!localStorage.getItem(REFRESH_KEY);
+      saveTokens(payload.accessToken, payload.refreshToken, remembered);
       return payload;
     })().finally(() => { refreshInFlight = null; });
   }
-
   return refreshInFlight;
 }
 
-// ---------------------------------------------------------
-// Generic fetch helpers (utan credentials)
-// ---------------------------------------------------------
+// ---------- Generic fetch helpers ----------
 async function fetchJson(url, { method = "GET", headers, body } = {}, retryOn401 = true) {
   const h = new Headers(headers || {});
+  const at = getAccessToken(); // <-- läs färsk token
+  if (at && !h.has("Authorization")) h.set("Authorization", `Bearer ${at}`);
   if (body != null && !h.has("Content-Type")) h.set("Content-Type", "application/json");
-  if (accessToken && !h.has("Authorization")) h.set("Authorization", `Bearer ${accessToken}`);
 
   const init = {
     method,
     headers: h,
     body: body != null ? (typeof body === "string" ? body : JSON.stringify(body)) : undefined,
-    credentials: "omit",   // <-- viktig: inga cookies skickas
+    credentials: "omit", // inga cookies
     mode: "cors"
   };
 
   let res = await fetch(url, init);
 
-  if (res.status === 401 && retryOn401 && refreshToken) {
+  if (res.status === 401 && retryOn401 && getRefreshToken()) {
     try {
       await refreshOnce();
-      // uppdatera headern med nya accessToken
-      h.set("Authorization", `Bearer ${accessToken}`);
+      const at2 = getAccessToken();
+      if (at2) h.set("Authorization", `Bearer ${at2}`);
       res = await fetch(url, { ...init, headers: h });
     } catch {
       clearTokens();
-      // låt 401 bubbla vidare
     }
   }
 
@@ -145,7 +137,6 @@ async function fetchJson(url, { method = "GET", headers, body } = {}, retryOn401
     throw new Error(`${method} ${url} → ${res.status} ${msg}`);
   }
 
-  // Försök tolka JSON, fallback {}
   try { return await res.json(); } catch { return {}; }
 }
 
@@ -153,7 +144,6 @@ async function safeText(res) {
   try { return await res.text(); } catch { return res.statusText; }
 }
 
-// Publika helpers
 export function apiGet(url) {
   return fetchJson(url, { method: "GET" });
 }
