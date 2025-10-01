@@ -34,6 +34,7 @@ export default function App() {
         />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="/cookie-settings" element={<CookieSettings />} />
         <Route path="/about-cookies" element={<AboutCookies />} />
       </Routes>

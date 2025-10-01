@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from "react";
+// src/pages/Sessions.jsx
+import React from "react";
 import SessionCard from "../components/SessionCard";
 import BookingForm from "../components/BookingForm";
+import { useAuth } from "../components/auth/authProvider";
 
-const EVENT_API = import.meta.env.VITE_EVENT_URL;     // ⬅️ rätt service
+// Bas-URL från .env (t.ex. VITE_EVENT_URL=https://localhost:7205)
+const EVENT_BASE = import.meta.env.VITE_EVENT_URL;
+
+// Undvik // i URL:er
+function join(base, path) {
+  const b = (base || "").replace(/\/+$/, "");
+  const p = (path || "").replace(/^\/+/, "");
+  return `${b}/${p}`;
+}
+
+const EVENT_API = join(EVENT_BASE, "/api");
 
 export default function Sessions() {
-  const [sessions, setSessions] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedSession, setSelectedSession] = useState(null);
+  const { getAccessToken } = useAuth();
+  const [sessions, setSessions] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [selectedSession, setSelectedSession] = React.useState(null);
 
   async function fetchSession() {
     try {
       setError(null);
       setLoading(true);
 
-      const res = await fetch(`${EVENT_API}/api/event`, {
-        headers: { Accept: "application/json" },
-        credentials: "include", // ok om du kräver cookie
+      const at = getAccessToken?.();
+      const res = await fetch(join(EVENT_API, "/event"), {
+        method: "GET",
+        credentials: "omit", // 👈 viktigt: inga cookies över CORS
+        headers: {
+          Accept: "application/json",
+          ...(at ? { Authorization: `Bearer ${at}` } : {}), // 👈 Bearer-token
+        },
+        mode: "cors",
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -43,9 +62,10 @@ export default function Sessions() {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchSession();
-  }, []);
+    // kör igen om token ändras (t.ex. efter login/refresh)
+  }, [getAccessToken]);
 
   if (loading) return <p>Laddar pass…</p>;
   if (error) return <p style={{ color: "crimson" }}>Fel: {error}</p>;
@@ -63,8 +83,8 @@ export default function Sessions() {
           session={selectedSession}
           onClose={() => setSelectedSession(null)}
           onBooked={async () => {
-            setSessions(prev =>
-              prev.map(item =>
+            setSessions((prev) =>
+              prev.map((item) =>
                 item.id === selectedSession.id
                   ? { ...item, reservedSeats: (Number(item.reservedSeats) || 0) + 1 }
                   : item
