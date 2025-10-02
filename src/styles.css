@@ -111,8 +111,15 @@ h1 { margin: 0 0 16px; }
 }
 
 .nav-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--bright-text);
   font-size: 1rem;
+}
+
+.nav-username {
+  margin-left: 8px;
 }
 
 .active-link {

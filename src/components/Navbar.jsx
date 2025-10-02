@@ -37,7 +37,7 @@ const Navbar = () => {
               <div className="nav-auth">
                 <span className="nav-user">
                   <FontAwesomeIcon icon={faCircleUser} aria-hidden="true" />
-                  <span style={{ marginLeft: 8 }}>
+                  <span className='nav-username'>
                     {user?.userName ?? user?.email ?? "Inloggad"}
                   </span>
                 </span>

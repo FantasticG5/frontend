@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import Toast from "./Toast";
 import { registerUser } from "../services/authService";
 import { useAuth } from "./auth/authProvider";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function RegisterForm() {
-  const { login } = useAuth();             // ⬅️ hämta login från AuthProvider
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "", password: "", confirmPassword: ""
   });
@@ -28,7 +31,6 @@ export default function RegisterForm() {
 
       // 1) Registrera användaren
       await registerUser({
-        // skicka snake/camel obrytt – servern matchar case-insensitive
         firstname: form.firstName,
         lastname: form.lastName,
         email: form.email,
@@ -36,11 +38,16 @@ export default function RegisterForm() {
         confirmedPassword: form.confirmPassword,
       });
 
-      // 2) Auto-login direkt (sparar tokens i AuthProvider)
-      await login(form.email, form.password, true);  // true = "kom ihåg mig" (localStorage)
+      // 2) Auto-login direkt
+      await login(form.email, form.password, true);
+
+      // 3) Visa toast och navigera hem
       setToast({ message: "Konto skapat och inloggad ✅", type: "success" });
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 800); // ändra till 0 för direkt redirect
     } catch (err) {
-      setToast({ message: err.message || "Något gick fel", type: "error" });
+      setToast({ message: err?.message || "Något gick fel", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -70,7 +77,9 @@ export default function RegisterForm() {
           {loading ? "Registrerar..." : "Registrera"}
         </button>
 
-        <p className="login-link">Är du redan medlem? <a href="/login">Logga in här</a></p>
+        <p className="login-link">
+          Är du redan medlem? <Link to="/login">Logga in här</Link>
+        </p>
 
         <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: "" })} />
       </form>
