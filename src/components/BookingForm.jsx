@@ -65,12 +65,14 @@ export default function BookingForm({ session, onClose, onBooked }) {
             {session.instructor}.
           </p>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Bokar..." : "Bekräfta bokning"}
-          </button>
-          <button type="button" onClick={onClose}>
-            Avbryt
-          </button>
+          <div className="btn-group">
+            <button type="submit" disabled={loading} className="confirm-book-btn">
+              {loading ? "Bokar..." : "Bekräfta bokning"}
+            </button>
+            <button type="button" onClick={onClose} className="cancel-btn">
+              Avbryt
+            </button>
+          </div>
         </form>
       )}
 

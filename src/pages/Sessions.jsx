@@ -67,12 +67,12 @@ export default function Sessions() {
     // kör igen om token ändras (t.ex. efter login/refresh)
   }, [getAccessToken]);
 
-  if (loading) return <p>Laddar pass…</p>;
-  if (error) return <p style={{ color: "crimson" }}>Fel: {error}</p>;
-  if (sessions.length === 0) return <p>Inga pass hittades.</p>;
+  if (loading) return <div className="my-sessions-container"><p>Laddar pass…</p></div>;
+  if (error) return <div className="my-sessions-container"><p style={{ color: "crimson" }}>Fel: {error}</p></div>;
+  if (sessions.length === 0) return <div className="my-sessions-container"><p>Inga pass hittades.</p></div>;
 
   return (
-    <div>
+    <div className="container">
       <h1 className="session-title">Träningspass</h1>
       {sessions.map((s) => (
         <SessionCard key={s.id} session={s} onBook={() => setSelectedSession(s)} />

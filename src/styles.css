@@ -4,8 +4,8 @@
   --text: #1f2937;
   --bright-text: #ffffff;
   --muted: #6b7280;
-  --accent: #22c55e;
-  --accent-hover: #16a34a;
+  --accent: rgb(231, 125, 25);
+  --accent-hover: rgb(207, 109, 18);
   --toast-success: #1f7a42;
   --toast-error: #7a1f1f;
   --danger: #ef4444;
@@ -34,6 +34,15 @@ html, body, #root {
   max-width: 720px;
   margin: 48px auto;
   padding: 0 16px;
+}
+
+.my-bookings-container, .my-sessions-container {
+  max-width: 720px;
+  margin: 48px auto;
+  padding: 0 16px;
+  cursor: default;
+  display: flex;
+  justify-content: center;
 }
 
 h1 { margin: 0 0 16px; }
@@ -95,6 +104,17 @@ h1 { margin: 0 0 16px; }
   color: var(--navbar-hover);
 }
 
+.nav-auth {
+  display: flex;
+  gap: 1rem;
+  cursor: default;
+}
+
+.nav-user {
+  color: var(--bright-text);
+  font-size: 1rem;
+}
+
 .active-link {
   border-bottom: 2px solid var(--navbar-hover) !important;
   padding: 0 0.3rem;
@@ -129,6 +149,34 @@ h1 { margin: 0 0 16px; }
 }
 
 .logout-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-button p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.logout-button svg {
+  transform: scaleX(-1);
+}
+
+.logout-button:hover {
+  color: var(--navbar-hover);
+ 
+  svg {
+    transform: scaleX(+1);
+  }
+}
+
+/* .logout-button {
   background: #121a33;
   color: white;
   border: 1px solid #33406c;
@@ -153,7 +201,7 @@ h1 { margin: 0 0 16px; }
 .logout-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
+} */
 
 .login-page-container {
   max-width: 40%;
@@ -201,7 +249,9 @@ h1 { margin: 0 0 16px; }
   cursor: pointer;
 }
 
-.login-button:hover { background-color: var(--orange-button-hover); }
+.login-button:hover { 
+  background-color: var(--orange-button-hover); 
+}
 
 /* Home Page */
 
@@ -348,7 +398,7 @@ h1 { margin: 0 0 16px; }
 
 .booking-card {
   background: var(--card);
-  border: 1px solid #263056;
+  border: 1px solid #ccc;
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -450,20 +500,19 @@ h1 { margin: 0 0 16px; }
 }
 
 .booking-form-container {
-  border: 1px solid #33406c;
+  border: 1px solid #ccc;
   padding: 14px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem;
   cursor: default;
 }
 
 .booking-form {
-  width: 70%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .booking-label {
@@ -486,16 +535,41 @@ h1 { margin: 0 0 16px; }
 
 .booking-button:hover { border-color: #4b5aa0; }
 
-.btn-book {
-  background: transparent;
+.btn-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.confirm-book-btn, .cancel-btn {
+  margin: 0 auto;
+  background: var(--orange-button);
   color: #fff;
-  border: 1px solid #33406c;
+  border: 1px solid var(--orange-button-border);
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.btn-book:hover { border-color: #4b5aa0; }
+.confirm-book-btn:hover, .cancel-btn:hover { 
+  background-color: var(--orange-button-hover);
+}
+
+.btn-book {
+  margin: 2rem auto 1rem;
+  background: var(--orange-button);
+  color: #fff;
+  border: 1px solid var(--orange-button-border);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-book:hover { 
+  background-color: var(--orange-button-hover);
+}
+
 .btn-book:disabled { opacity: .6; cursor: not-allowed; }
 
 .btn-cancel {
@@ -679,9 +753,9 @@ h1 { margin: 0 0 16px; }
 .register-form {
   display: flex;
   flex-direction: column;
-  background: #263056;
-  border: 1px solid #33406c;
-  padding: 2rem 5rem;
+  background: var(--popup-bg);
+  border: 1px solid var(--popup-border);
+  padding: 2rem 5rem 1rem;
   border-radius: 12px;
 }
 
@@ -704,9 +778,9 @@ h1 { margin: 0 0 16px; }
 
 .register-button {
   margin: 2rem auto 1rem;
-  background: transparent;
+  background: var(--orange-button);
   color: #fff;
-  border: 1px solid #33406c;
+  border: 1px solid var(--orange-button-border);
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
@@ -714,7 +788,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .register-button:hover {
-  border-color: #4b5aa0;
+   background-color: var(--orange-button-hover);
 }
 
 .error-message {
@@ -799,6 +873,7 @@ h1 { margin: 0 0 16px; }
   background: var(--accent);
   color: var(--bg);
   border-color: var(--accent);
+  border-radius: 8px;
 }
 
 .btn-accept-all:hover {
@@ -881,8 +956,8 @@ h1 { margin: 0 0 16px; }
 }
 
 .cookie-setting-item.necessary {
-  background: rgba(74, 222, 128, 0.1);
-  border-color: rgba(74, 222, 128, 0.3);
+  background: rgba(231, 125, 25, 0.301);
+  border-color: rgba(194, 99, 11, 0.301);
 }
 
 .cookie-setting-info {
@@ -1082,7 +1157,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .about-cookies-page .duration-badge {
-  background: rgba(74, 222, 128, 0.2);
+  /* background: rgba(74, 222, 128, 0.2); */
   color: var(--accent);
   padding: 4px 8px;
   border-radius: 6px;
@@ -1243,7 +1318,7 @@ h1 { margin: 0 0 16px; }
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent) 0%, #22c55e 100%);
+  background: var(--accent);
   color: var(--bg);
   border: none;
   padding: 16px 32px;
@@ -1251,8 +1326,6 @@ h1 { margin: 0 0 16px; }
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
   position: relative;
   overflow: hidden;
   text-transform: none;
@@ -1266,28 +1339,15 @@ h1 { margin: 0 0 16px; }
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: var(--accent-hover);
 }
 
 .btn-primary:hover::before {
   left: 100%;
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
-}
-
-.btn-primary:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3);
 }
 
 /* Responsive design for mobile */

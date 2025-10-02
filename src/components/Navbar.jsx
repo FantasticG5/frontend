@@ -42,7 +42,8 @@ const Navbar = () => {
                   </span>
                 </span>
                 <button className="logout-button" onClick={handleLogoutClick}>
-                  Logga ut
+                  <p>Logga ut</p>
+                  <FontAwesomeIcon icon={faPersonWalking} aria-hidden="true" />
                 </button>
               </div>
             ) : (

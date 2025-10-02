@@ -110,9 +110,9 @@ export default function MyBookings() {
   }
 
   // --- Render ---
-  if (loading) return <p>Laddar bokningar…</p>;
-  if (!me) return <p>Du är inte inloggad. <a href="/login">Logga in</a></p>;
-  if (items.length === 0) return <p>Du har inga kommande bokningar.</p>;
+  if (loading) return <div className="my-bookings-container"><p>Laddar bokningar…</p></div>;
+  if (!me) return <div className="my-bookings-container"><p>Du är inte inloggad. <a href="/login">Logga in</a></p></div>;
+  if (items.length === 0) return <div className="my-bookings-container"><p>Du har inga kommande bokningar.</p></div>;
 
   return (
     <div className="container">
