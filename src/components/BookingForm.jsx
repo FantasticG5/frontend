@@ -1,0 +1,78 @@
+// src/components/BookingForm.jsx
+import React, { useEffect, useState } from "react";
+import Toast from "./Toast";
+import { getMe } from "../services/identityService";
+import { createBooking } from "../services/bookingService";
+import { useToast } from "../context/ToastContext";
+
+export default function BookingForm({ session, onClose, onBooked }) {
+  const [me, setMe] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [fetchingMe, setFetchingMe] = useState(true);
+  const showToast = useToast();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setFetchingMe(true);
+        const user = await getMe(); // läses via auth-cookie
+        setMe(user);
+      } catch (e) {
+        setMe(null); // inte inloggad
+      } finally {
+        setFetchingMe(false);
+      }
+    })();
+  }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!me) {
+      showToast("Du måste vara inloggad för att boka.", "error");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      // Din backend kan läsa userId via cookie/claims; skicka bara classId
+      await createBooking({ classId: session.id });
+
+      showToast("Bokning genomförd!", "success");
+      onBooked?.();
+    } catch (err) {
+      showToast(err?.message || "Något gick fel vid bokningen.", "error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="booking-form-container">
+      <h2>Boka pass "{session.title}"</h2>
+
+      {fetchingMe ? (
+        <p>Laddar användare…</p>
+      ) : !me ? (
+        <p>
+          Du är inte inloggad. <a href="/login">Logga in</a> för att boka.
+        </p>
+      ) : (
+        <form onSubmit={handleSubmit} className="booking-form">
+          <p>
+            Du bokar plats på <strong>{session.title}</strong> med{" "}
+            {session.instructor}.
+          </p>
+
+          <div className="btn-group">
+            <button type="submit" disabled={loading} className="confirm-book-btn">
+              {loading ? "Bokar..." : "Bekräfta bokning"}
+            </button>
+            <button type="button" onClick={onClose} className="cancel-btn">
+              Avbryt
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+}
