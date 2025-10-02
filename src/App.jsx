@@ -13,12 +13,14 @@ import CookieBanner from "./components/CookieBanner";
 import { useAnalytics } from "./hooks/useAnalytics";
 import ProtectedRoute from "./components/auth/protectedRoute";
 import Footer from "./components/Footer";
+import { ToastProvider } from "./context/ToastContext";
 
 export default function App() {
   useAnalytics();
 
   return (
     <Router>
+      <ToastProvider>
       <div className="app-wrapper">
       <Navbar />
         <div className="content">
@@ -42,6 +44,7 @@ export default function App() {
           </div>
           <Footer />
         </div>
+        </ToastProvider>
     </Router>
   );
 }
