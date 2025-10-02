@@ -799,6 +799,24 @@ h1 { margin: 0 0 16px; }
   font-size: 0.8rem;
 }
 
+.register-link, .login-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  
+}
+
+.register-link a, .login-link a {
+color: var(--text);
+font-style: italic;
+text-decoration: none;
+}
+
+.register-link a:hover, .login-link a:hover {
+  text-decoration: underline;
+}
+
+
 /* Cookie Banner Styles */
 .cookie-banner {
   position: fixed;

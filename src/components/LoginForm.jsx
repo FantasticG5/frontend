@@ -86,6 +86,8 @@ const LoginForm = ({ onLogin, loading, error }) => {
               </button>
 
             {submitError && <p className="error-message">{submitError}</p>}
+
+            <p className="register-link">Är du inte medlem än? <a href="/register">Registrera dig här</a></p>
         </form>
     </div>
   )

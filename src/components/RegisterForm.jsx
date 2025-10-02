@@ -70,6 +70,8 @@ export default function RegisterForm() {
           {loading ? "Registrerar..." : "Registrera"}
         </button>
 
+        <p className="login-link">Är du redan medlem? <a href="/login">Logga in här</a></p>
+
         <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: "" })} />
       </form>
     </div>
