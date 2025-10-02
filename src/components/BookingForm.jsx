@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import Toast from "./Toast";
 import { getMe } from "../services/identityService";
 import { createBooking } from "../services/bookingService";
+import { useToast } from "../context/ToastContext";
 
 export default function BookingForm({ session, onClose, onBooked }) {
   const [me, setMe] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetchingMe, setFetchingMe] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "success" });
+  const showToast = useToast();
 
   useEffect(() => {
     (async () => {
@@ -27,7 +28,7 @@ export default function BookingForm({ session, onClose, onBooked }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!me) {
-      setToast({ message: "Du måste vara inloggad för att boka.", type: "error" });
+      showToast("Du måste vara inloggad för att boka.", "error");
       return;
     }
 
@@ -36,13 +37,10 @@ export default function BookingForm({ session, onClose, onBooked }) {
       // Din backend kan läsa userId via cookie/claims; skicka bara classId
       await createBooking({ classId: session.id });
 
-      setToast({ message: "Bokning genomförd!", type: "success" });
+      showToast("Bokning genomförd!", "success");
       onBooked?.();
     } catch (err) {
-      setToast({
-        message: err?.message || "Något gick fel vid bokningen.",
-        type: "error",
-      });
+      showToast(err?.message || "Något gick fel vid bokningen.", "error");
     } finally {
       setLoading(false);
     }
@@ -75,12 +73,6 @@ export default function BookingForm({ session, onClose, onBooked }) {
           </div>
         </form>
       )}
-
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
-      />
     </div>
   );
 }
